@@ -1,0 +1,47 @@
+{
+  "name": "angular-function-component",
+  "version": "0.1.0",
+  "description": "A tiny package to create angular component as functions.",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "files": ["lib/**/*"],
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+    "lint": "tslint -p tsconfig.json",
+
+    "prepare" : "npm run build",
+    "prepublishOnly" : "npm test && npm run lint",
+    "preversion" : "npm run lint",
+    "version" : "npm run format && git add -A src",
+    "postversion" : "git push && git push --tags"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kuroidoruido/angular-function-component.git"
+  },
+  "keywords": [
+    "angular",
+    "function",
+    "component"
+  ],
+  "author": "Anthony Pena",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kuroidoruido/angular-function-component/issues"
+  },
+  "homepage": "https://github.com/kuroidoruido/angular-function-component#readme",
+  "dependencies": {
+    "@angular/core": "^8.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^12.0.8",
+    "prettier": "^1.18.2",
+    "rxjs": "^6.5.2",
+    "ts-node": "^8.2.0",
+    "tslint": "^5.17.0",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.5.1"
+  }
+}
