@@ -9,10 +9,10 @@
   </tr>
   <tr>
     <td>
-      <std-hello></std-hello>
+      <std-hello world="all" (click)="msg('std-hello', $event)"></std-hello>
     </td>
     <td>
-        <fc-hello></fc-hello>
+      <fc-hello world="all" (click)="msg('fc-hello', $event)"></fc-hello>
     </td>
   </tr>
 </table>

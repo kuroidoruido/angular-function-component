@@ -2,6 +2,7 @@
     "extends": ["tslint:recommended", "tslint-config-prettier"],
     "rules": {
         "interface-name": [true, "never-prefix"],
-        "unified-signatures": false
+        "unified-signatures": false,
+        "no-string-literal": false
     }
 }
