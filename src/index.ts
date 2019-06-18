@@ -91,9 +91,6 @@ export function StatelessComponent(
 
   const clazz = class StatelessComponentClass {
     constructor() {
-      inputs.forEach(input => {
-        this[input] = void 0;
-      });
       outputs.forEach(output => {
         this[output] = new EventEmitter<any>();
       });
