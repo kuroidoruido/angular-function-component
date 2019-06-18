@@ -135,4 +135,4 @@ No. This lib aims to only wrap standard angular things to let us write component
 - [x] let us create component with output properties (or emit event)
 - [ ] publish to npm
 - [ ] add default input value
-- [ ] clean up all code
+- [x] clean up all code
