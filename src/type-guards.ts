@@ -5,3 +5,7 @@ export function isString(x: unknown): x is string {
 export function isUndefined(x: unknown): x is undefined {
   return typeof x === 'undefined';
 }
+
+export function isDefined<T>(x: T | null | undefined): x is T {
+  return typeof x !== 'undefined';
+}

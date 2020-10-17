@@ -1,9 +1,9 @@
 import { RenderFunction, StatelessComponentConfig, StyleFunction } from './model';
-import { isString, isUndefined } from './type-guards';
+import { isDefined, isString, isUndefined } from './type-guards';
 
 /* SELECTOR */
 function parseSelector(configOrSelector, config) {
-  const selector = config ? config.selector : (configOrSelector as string);
+  const selector = isDefined(config) ? config.selector : (configOrSelector as string);
   if (isUndefined(selector)) {
     throw Error('You should specify a selector.');
   }
@@ -11,7 +11,7 @@ function parseSelector(configOrSelector, config) {
 }
 /* TEMPLATE */
 function parseTemplate(renderFnOrTemplate, config) {
-  const template = renderFnOrTemplate
+  const template = isDefined(renderFnOrTemplate)
     ? isString(renderFnOrTemplate)
       ? renderFnOrTemplate
       : renderFnOrTemplate()
@@ -25,16 +25,16 @@ function parseTemplate(renderFnOrTemplate, config) {
 
 /* STYLE */
 function parseStyle(styleFnOrStyle, config) {
-  return styleFnOrStyle
-    ? (isString(styleFnOrStyle)
+  return isDefined(styleFnOrStyle)
+    ? isString(styleFnOrStyle)
       ? [styleFnOrStyle]
-      : [styleFnOrStyle()])
+      : [styleFnOrStyle()]
     : [config.style];
 }
 
 /* INPUTS/OUTPUTS */
 function parseInputsOutputs(inOut, config) {
-  if (inOut || config.inOut) {
+  if (isDefined(inOut) || isDefined(config.inOut)) {
     const tmpInOut = config.inOut || inOut || [];
     const sortedInOut = tmpInOut
       .reduce(
