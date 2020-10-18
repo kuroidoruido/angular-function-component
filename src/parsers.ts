@@ -1,22 +1,23 @@
 import { RenderFunction, StatelessComponentConfig, StyleFunction } from './model';
+import { isDefined, isString, isUndefined } from './type-guards';
 
 /* SELECTOR */
 function parseSelector(configOrSelector, config) {
-  const selector = config ? config.selector : (configOrSelector as string);
-  if (typeof selector === 'undefined') {
+  const selector = isDefined(config) ? config.selector : (configOrSelector as string);
+  if (isUndefined(selector)) {
     throw Error('You should specify a selector.');
   }
   return selector;
 }
 /* TEMPLATE */
 function parseTemplate(renderFnOrTemplate, config) {
-  const template = renderFnOrTemplate
-    ? typeof renderFnOrTemplate === 'string'
+  const template = isDefined(renderFnOrTemplate)
+    ? isString(renderFnOrTemplate)
       ? renderFnOrTemplate
       : renderFnOrTemplate()
     : config.template;
 
-  if (typeof template === 'undefined') {
+  if (isUndefined(template)) {
     throw Error('You should specify a template.');
   }
   return template;
@@ -24,12 +25,16 @@ function parseTemplate(renderFnOrTemplate, config) {
 
 /* STYLE */
 function parseStyle(styleFnOrStyle, config) {
-  return styleFnOrStyle ? (typeof styleFnOrStyle === 'string' ? [styleFnOrStyle] : [styleFnOrStyle()]) : [config.style];
+  return isDefined(styleFnOrStyle)
+    ? isString(styleFnOrStyle)
+      ? [styleFnOrStyle]
+      : [styleFnOrStyle()]
+    : [config.style];
 }
 
 /* INPUTS/OUTPUTS */
 function parseInputsOutputs(inOut, config) {
-  if (inOut || config.inOut) {
+  if (isDefined(inOut) || isDefined(config.inOut)) {
     const tmpInOut = config.inOut || inOut || [];
     const sortedInOut = tmpInOut
       .reduce(
@@ -68,8 +73,7 @@ export function parse(
   renderFnOrTemplate?: RenderFunction | string,
   styleFnOrStyle?: string | StyleFunction,
 ): ParseResult {
-  const config: StatelessComponentConfig =
-    typeof configOrSelector !== 'string' && (configOrSelector as StatelessComponentConfig);
+  const config: StatelessComponentConfig = !isString(configOrSelector) && configOrSelector;
 
   return {
     selector: parseSelector(configOrSelector, config),
